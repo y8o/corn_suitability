@@ -1,38 +1,105 @@
 # Corn Suitability Analysis – Missouri
 
-This project uses ArcGIS to conduct a raster-based site suitability analysis to identify ideal locations for corn cultivation in Missouri. The analysis is based on four key factors:
+This GIS-based project identifies suitable areas for **corn cultivation** in a region of **Missouri** using a **site suitability analysis** in ArcGIS. The final product is a ranked raster surface that categorizes land into 5 levels of suitability: **Excellent, Good, Fair, Poor, or Unsuitable**.
 
-- **Land Use** – Areas appropriate for agriculture
-- **Soil Drainage** – Well-drained soils best for corn
-- **Slope** – Flat areas are preferred
-- **Proximity to Roads** – Close enough for transport, but not too close due to pollution
+<p align="center">
+  <img src="./corn_suitability.png" alt="Corn Suitability Map" width="600"/>
+</p>
 
-## Methodology
+<p align="center">
+  <img src="./legend.png" alt="Legend" width="400"/>
+</p>
 
-1. **Data Preparation**
-   - Converted vector data to raster (50m resolution)
-   - Reclassified input layers to a 1–5 suitability scale
+---
 
-2. **Euclidean Distance**
-   - Computed distance to nearest roads
-   - Reclassified to favor middle-distance zones
+## 🔍 Objective
 
-3. **Weighted Overlay**
-   - Combined reclassified rasters using the following weights:
-     ```
-     ("Land Use" * 2 + "Soil" * 3 + "Slope" * 1 + "Road Distance" * 2) / 8
-     ```
+To locate areas best suited for cultivating corn based on four geospatial factors:
 
-4. **Output**
-   - Final suitability raster with classification: Excellent, Good, Fair, Poor, Unsuitable
+- **Land Use**: Identifies areas appropriate for agriculture  
+- **Soil Drainage**: Prefers well-drained soils  
+- **Slope**: Prefers flat terrain  
+- **Distance to Roads**: Should be close enough for transport, but not too close (to avoid pollution)
 
-## Files
+---
 
-- [`corn-suitability.pdf`](./corn-suitability.pdf): Final report with maps and methodology
-- No code available as this was performed entirely within ArcMap Desktop using GUI-based workflows
+## 🛠️ Tools Used
 
-## Tools Used
+- **ArcGIS Desktop**
+- **Spatial Analyst Extension**
+- **Raster Calculator**
+- **Euclidean Distance Tool**
+- Manual classification and reclassification workflows
 
-- ArcGIS Desktop
-- Spatial Analyst Tools
-- Raster Calculator
+---
+
+## 📊 Methodology
+
+### 1. Convert to Raster
+
+Shapefiles for Land Use, Soils, and Slope were converted to rasters using:
+
+- **Field Inputs**:
+  - `LandUse`: LU_CODE
+  - `Soil`: DRAIN_CODE
+  - `Slope`: SLOPE_CODE
+- **Output Cell Size**: 50m
+
+### 2. Reclassify Values (Scale: 1 = Unsuitable, 5 = Excellent)
+
+Each layer was reclassified based on predefined suitability criteria:
+
+- **Slope_Reclass**: Flat areas received higher scores  
+- **Soil_Reclass**: Well-drained soils preferred  
+- **LU_Reclass**: Agricultural zones ranked highest  
+- **Road_Reclass**: Euclidean Distance used, reclassified with ideal mid-range distances ranked highest
+
+### 3. Compute Road Distance
+
+- Used **Euclidean Distance** tool with a 50m cell size  
+- Classified into 11 ranges (100m intervals from 0–1000m, then 1000–1850m)  
+- Reclassified using a "Goldilocks" model (middle distances = most suitable)
+
+---
+
+## 🧮 Suitability Equation
+
+Final site suitability was calculated using a **weighted overlay**:
+
+```
+(LU_RECLASS * 2 + SOIL_RECLASS * 3 + SLOPE_RECLASS * 1 + ROAD_RECLASS * 2) / 8
+```
+
+- **Soil** was weighted highest (×3)  
+- **Land Use** and **Road Distance** were moderately weighted (×2)  
+- **Slope** was least important (×1)  
+
+The result was a final raster surface with continuous values, which were classified into:
+
+- **5 = Excellent**
+- **4 = Good**
+- **3 = Fair**
+- **2 = Poor**
+- **1 = Unsuitable**
+
+---
+
+## 📁 Files
+
+- `corn_suitability_analysis.pdf`: Final report with methodology and maps  
+- `corn_suitability.png`: Suitability output map  
+- `legend.png`: Legend image used in visualization  
+- `README.md`: This report
+
+---
+
+## 🔗 Demo
+
+👉 [**View the full PDF report**](./corn_suitability_analysis.pdf)  
+*(Opens in-browser on GitHub — no download required)*
+
+---
+
+## 🧠 Summary
+
+This project demonstrates a classic **multi-criteria raster overlay** analysis and presents a simple but realistic use case in agricultural planning. It involved spatial data transformation, reclassification, Euclidean distance modeling, and raster algebra — all completed entirely within **ArcGIS Desktop**.
