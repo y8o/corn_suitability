@@ -2,13 +2,16 @@
 
 This GIS-based project identifies suitable areas for **corn cultivation** in a region of **Missouri** using a **site suitability analysis** in ArcGIS. The final product is a ranked raster surface that categorizes land into 5 levels of suitability: **Excellent, Good, Fair, Poor, or Unsuitable**.
 
-<p align="center">
-  <img src="./corn_suitability.png" alt="Corn Suitability Map" width="600"/>
-</p>
-
-<p align="center">
-  <img src="./legend.png" alt="Legend" width="400"/>
-</p>
+<table align="center">
+  <tr>
+    <td>
+      <img src="./corn_suitability.png" alt="Corn Suitability Map" width="600"/>
+    </td>
+    <td>
+      <img src="./legend.png" alt="Legend" width="150"/>
+    </td>
+  </tr>
+</table>
 
 ---
 
