@@ -4,20 +4,79 @@
   <meta charset="UTF-8" />
   <title>Corn Suitability Report – Missouri</title>
   <style>
-    html, body {
+    body {
       margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .pdf-viewer {
+      flex: 2;
       height: 100%;
     }
-    iframe {
+
+    .pdf-viewer iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
+
+    .sidebar {
+      flex: 1;
+      padding: 1.5rem;
+      background-color: #f4f4f4;
+      overflow-y: auto;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ddd;
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin: 2px 4px 2px 0;
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
-  <iframe 
-    src="https://docs.google.com/gview?url=https://y8o.github.io/corn_suitability/corn_suitability_analysis.pdf&embedded=true">
-  </iframe>
+  <div class="container">
+    <div class="pdf-viewer">
+      <iframe 
+        src="https://docs.google.com/gview?url=https://y8o.github.io/corn_suitability/corn_suitability_analysis.pdf&embedded=true">
+      </iframe>
+    </div>
+    <div class="sidebar">
+      <h1>Corn Suitability Analysis</h1>
+      <p>
+        A GIS-based site suitability project to identify optimal areas for cultivating corn in Missouri,
+        based on four key factors:
+      </p>
+      <ul>
+        <li><strong>Land Use</strong> – appropriate for agriculture</li>
+        <li><strong>Soil Drainage</strong> – well-drained soils</li>
+        <li><strong>Slope</strong> – flat terrain is preferred</li>
+        <li><strong>Distance to Roads</strong> – not too close, not too far</li>
+      </ul>
+
+      <h2>Tools Used</h2>
+      <span class="tag">ArcGIS</span>
+      <span class="tag">Spatial Analyst</span>
+      <span class="tag">Raster Calculator</span>
+      <span class="tag">Euclidean Distance</span>
+
+      <h2>Suitability Equation</h2>
+      <code>(LU_RECLASS * 2 + SOIL_RECLASS * 3 + SLOPE_RECLASS * 1 + ROAD_RECLASS * 2) / 8</code>
+
+      <p>This weighted raster overlay assigns scores from 1 (unsuitable) to 5 (excellent).</p>
+    </div>
+  </div>
 </body>
 </html>
