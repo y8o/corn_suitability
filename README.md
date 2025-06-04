@@ -86,6 +86,21 @@ The result was a final raster surface with continuous values, which were classif
 - **1 = Unsuitable**
 
 ---
+## 📈 Suitability Classification Results
+
+The final raster surface was classified into five ranks of suitability. Below is a summary of the output:
+
+| Rank        | Suitability | Number of Raster Cells | Area (sq. meters) |
+|-------------|-------------|-------------------------|-------------------|
+| 5           | Excellent   | 232                     | 580,000           |
+| 4           | Good        | 8,689                   | 21,722,500        |
+| 3           | Fair        | 23,597                  | 58,992,500        |
+| 2           | Poor        | 3,821                   | 9,552,500         |
+| 1           | Unsuitable  | 331                     | 827,500           |
+
+This table quantifies the spatial distribution of land suitable for corn cultivation.
+
+---
 
 ## 📁 Files
 

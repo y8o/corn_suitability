@@ -2,16 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Corn Suitability Report – Missouri</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
     }
 
     .container {
       display: flex;
+      flex: 1;
       height: 100vh;
+      overflow: hidden;
     }
 
     .pdf-viewer {
@@ -32,8 +42,12 @@
       overflow-y: auto;
     }
 
-    h1 {
+    h1, h2 {
       margin-top: 0;
+    }
+
+    ul {
+      padding-left: 1.2rem;
     }
 
     .tag {
@@ -43,6 +57,46 @@
       padding: 2px 6px;
       margin: 2px 4px 2px 0;
       font-size: 0.8rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 4px;
+      text-align: center;
+    }
+
+    code {
+      display: inline-block;
+      background: #eee;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin: 6px 0;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      .pdf-viewer, .sidebar {
+        flex: none;
+        height: auto;
+      }
+
+      .pdf-viewer iframe {
+        height: 60vh;
+      }
     }
   </style>
 </head>
@@ -76,6 +130,25 @@
       <code>(LU_RECLASS * 2 + SOIL_RECLASS * 3 + SLOPE_RECLASS * 1 + ROAD_RECLASS * 2) / 8</code>
 
       <p>This weighted raster overlay assigns scores from 1 (unsuitable) to 5 (excellent).</p>
+
+      <h2>📈 Suitability Classification Results</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Suitability</th>
+            <th># Raster Cells</th>
+            <th>Area (m²)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>5</td><td>Excellent</td><td>232</td><td>580,000</td></tr>
+          <tr><td>4</td><td>Good</td><td>8,689</td><td>21,722,500</td></tr>
+          <tr><td>3</td><td>Fair</td><td>23,597</td><td>58,992,500</td></tr>
+          <tr><td>2</td><td>Poor</td><td>3,821</td><td>9,552,500</td></tr>
+          <tr><td>1</td><td>Unsuitable</td><td>331</td><td>827,500</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </body>
